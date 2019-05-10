@@ -1,0 +1,8 @@
+<%- include("header",{type:'my'}) %>
+    <form class="form-post" style="width:100%" action="/addComment" method="post">
+        <textarea name="commentContent" type="text" placeholder="请输入评论内容" cols="42" rows="10"></textarea>
+        <br/> 
+        <button class="submit" type='submit'>提交</button>
+        <button class="submit" type='reset'>重置</button>
+    </form>
+<% include footer %>

@@ -1,0 +1,12 @@
+<%- include("header",{type:'my'}) %>
+    <form action="/modifytopic" method="post">
+        <!-- <input name="postId" type="text" placeholder="请输入需要修改的文章Id"/> -->
+        <br/>
+        <input name="newTitle" type="text" value="<%= post.title %>"/> 
+        <br/>
+        <textarea name="newContent" type="text"  cols="42" rows="10"><%= post.content %></textarea>
+        <br/> 
+        <button class="editarticlesubmit" type='submit'>提交</button>
+        <button class="editarticlesubmit" type='reset'>重置</button>
+    </form>
+<% include footer %>

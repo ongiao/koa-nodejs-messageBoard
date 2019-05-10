@@ -1,0 +1,12 @@
+<%- include("header",{type:'my'}) %>
+    <div class="container">
+        <form action="/login" method="post">
+            <input name="username" type="text" placeholder="请输入用户名：ikcamp"/> 
+            <br/>
+            <input name="password" type="password" placeholder="请输入密码：123456"/>
+            <br/> 
+            <button  class="submit" type='submit'>登录</button>
+            <button class="submit" type="reset">重置</button>
+        </form>
+    </div>
+<% include footer %>

@@ -1,0 +1,94 @@
+<%- include("header",{type:'my'}) %>
+    <div class="container">
+        <% if(posts.length > 0 ){  %>
+            <ul class="posts">
+                <% posts.forEach(function(res){ %>
+                    <% if(res.status == 0) {%>
+                        <li class="epost">
+                            <div class="epostdata">
+                                <span>
+                                    <a href="/gettopic/<%= res.id %>">
+                                        <div class="title">
+                                            <span class="title_span">
+                                                文章标题：<%- res.title %>
+                                                <span class="updatetime-in-allpost">
+                                                    浏览量：<%= res.pv %>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    更新时间：<%- res.update_time.toLocaleString() %>
+                                                </span>
+                                                <div class="postauthor" title="<%= res.title %>">
+                                                    <a class="allpost-author" href="/gettopics/?author=<%= res.username %> ">
+                                                        作者: <%= res.username %>
+                                                    </a>
+                                                </div>
+                                            </span> 
+                                        </div>
+                                    </a>
+                                    <% if(session.username == res.username){ %>
+                                        <span class="right_modify">
+                                            <button class="changearticlesubmit" id="postId=<%= res.id %>&title=<%= res.title %>&content=<%= res.content %>" onclick="test(this)">
+                                                修改
+                                            </button>
+                                        </span>
+                                        <span class="delete_post">
+                                            <button class="changearticlesubmit" id="todelete" name="<%= res.id %>" onclick="on_delete(this)">
+                                                删除
+                                            </button>
+                                        </span>
+
+                                        <script>
+                                            function test(obj){
+                                                var postId = obj.getAttribute("id");
+                                                window.location.href="/modifytopic?" + postId;
+                                            }
+                                    
+                                            function on_delete(obj) {
+                                                var deleteId = obj.getAttribute("name");
+                                                if(confirm(`你确定要删除这篇文章吗？`)){
+                                                    $.ajax({
+                                                        url: `/deletetopic/${deleteId}`,
+                                                        type: 'DELETE',
+                                                        cache: false,
+                                                        success: function (msg) {
+                                                            // alert('msgcode   '+msg.code);
+                                                            fade('删除文章成功');
+                                                            setTimeout(function() {
+                                                                window.location.href = "http://localhost:3000/gettopics";
+                                                            }, 1500)
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        </script>
+                                    <% } %>
+                                    <div class="content-markdown">
+                                        文章内容：<%- res.content %>
+                                    </div>
+                                </span>
+                            </div>
+                        </li>
+                    <% } %>
+                <% }) %>
+            </ul>
+        <% }else{  %>
+            <p class="tips">暂时没有文章，快去前往发表吧</p>
+        <% } %>
+
+        <!-- 这里是发表主题区域 -->
+        <% if(session.username){ %>
+            <div class="center">
+                <form class="form-post" style="width:100%" action="/addtopic" method="post">
+                    <input name="title" type="text" placeholder="请输入主题标题"/> 
+                    <br/>
+                    <div style="height: 10px; width: 10px"></div>
+                    <textarea name="content" type="text" placeholder="请输入主题内容" cols="42" rows="10"></textarea>
+                    <br/> 
+                    <button class="submit" type='submit'>提交</button>
+                    <button class="submit" type='reset'>重置</button>
+                </form>
+        </div>
+        <% } else { %>
+            <p><a class="endtips" href="/login">还没登录哦，快去登录再发表主题吧</a></p>
+        <% } %>
+    </div>
+<% include footer %>

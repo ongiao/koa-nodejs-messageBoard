@@ -1,0 +1,30 @@
+ <%- include("header",{type:'signup'}) %>
+    <div class="container">
+        <form class="form create" method="post">
+            <div>
+                <label>用户名：</label> 
+                <input id="user_name" name="username" placeholder="请输入用户名" type="text" name="name">
+            </div>
+            <div>
+                <label>密码：</label> 
+                <input id="pass_word" name="password" placeholder="请输入密码" class="password" type="password" name="password">
+            </div>
+            <button class="submit" onclick="checkNullInput()">注册新用户</button>
+            <button class="reset">重置</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function checkNullInput() {
+            if(document.getElementById("user_name").value == "") {
+                alert("注册的用户名为空，请输入正确的用户名");
+                return false;
+            } else if(document.getElementById("pass_word").value == "") {
+                alert("注册的密码为空，请输入正确的密码");
+                return false;
+            } else {
+                alert("注册成功！");
+                return true;
+            }
+        }
+    </script>
+<% include footer %>

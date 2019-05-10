@@ -1,0 +1,80 @@
+<%- include("header",{type:'my'}) %>
+    <style type="text/css">
+        .time {
+            text-align: center;
+            font-size: 15px;
+            font-family:times;
+            display: block;
+            color: grey;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-style:italic
+        }
+        ul {list-style:none;}
+    </style>
+    <div class="container">
+        <ul class="posts">
+            <li>
+                <div class="single-title-span">
+                    <%- posts[0].title %>
+                </div>
+                <div class="single-content-markdown">
+                    <a class="single-article-author" href="/gettopics/?author=<%= posts[0].username %> "><%= posts[0].username %></a>
+                    <script>
+                        var time = posts[0].update_time;
+                    </script>
+                    <div class="time">
+                        发布时间：<%= posts[0].create_time.toLocaleString()%>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        更新时间：<%= posts[0].update_time.toLocaleString()%>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        浏览量: <%= posts[0].pv %>                 
+                    </div>
+                </div>
+                <div class="single-content-markdown">
+                    <%- posts[0].content %>
+                </div>
+                <% if(comments.length > 0) {%>
+                    <ul class="posts">
+                        <% comments.forEach(function(comment) { %>
+                            <% if(comment.status == 0) { %>
+                                <div>
+                                    <li class="epost">
+                                        <div class="epostdata">
+                                            <span>
+                                                <div class="title">
+                                                    <span class="title_span">
+                                                            <%= comment.username %>：<%- comment.content %>
+                                                        <span class="updatetime-in-allpost">
+                                                            发表时间：<%- comment.create_time.toLocaleString() %>
+                                                        </span>
+                                                    </span> 
+                                                </div>      
+                                            </span>
+                                        </div>
+                                    </li>
+                                </div>
+                            <% } %>
+                        <% }) %>
+                     </ul>
+                <% } else {%>
+                    <p class="tips">暂时没有评论，快去前往发表吧</p>
+                <% } %>
+
+                <!-- 用户添加评论区域 -->
+                <% if(session.username){ %>
+                    <button class="submit" type='submit' id="postId=<%= posts[0].id %>" onclick="submitComment(this)">发表评论</button>
+
+                    <script>
+                        function submitComment(obj) {
+                            var postId = obj.getAttribute("id");
+                            window.location.href="/addComment?" + postId;
+                        }
+                    </script>
+                <% } else { %>
+                    <p><a class="endtips" href="/login">还没登录哦，快去登录再发表评论吧</a></p>
+                <% } %>
+            </li> 
+        </ul>
+    </div>
+<% include footer %>

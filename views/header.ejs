@@ -1,0 +1,440 @@
+<!DOCTYPE <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>koa-liuyanban</title>
+
+    <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="/index.css"> -->
+    <link rel="stylesheet" href="/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function fade(txt) {
+            $('.messageTip').text(txt)
+            $('.messageTip').animate({
+                top: 0
+            })
+            setTimeout(function() {
+                $('.messageTip').animate({
+                    top: '-100%'
+                })
+            }, 2000)
+        }
+
+        // $('#submitlogin').click(function() {
+        //     if($('input[name=username]').val().trim() == '' || $('input[name=password]').val().trim() == '') {
+        //         alert('空');
+        //         fade('请输入用户名或密码');
+        //     } else {
+        //         alert($('.form').serialize());
+        //         // alert($('input[name=username]').val());
+        //         // alert($('input[name=password]').val());
+        //         $.ajax({
+        //             url: "/login",
+        //             data: $('.form').serialize(),
+        //             type: "POST",
+        //             dataType: 'json',
+        //             cache: false,
+        //             success: function(msg){
+        //                 fade('登录成功');
+        //                 setTimeout(function(){
+        //                     location.href = window.location.href = "http://localhost:3000/gettopics";
+        //                 },1500)
+        //             }
+        //         })
+        //     }
+        // })
+        // function onclick_login() {
+        //     if($('input[name=username]').val().trim() == '' || $('input[name=password]').val().trim() == '') {
+        //         alert('空');
+        //         fade('请输入用户名或密码');
+        //     } else {
+        //         alert($('.form-create').serialize());
+        //         alert($('input[name=username]').val());
+        //         alert($('input[name=password]').val());
+        //         $.ajax({
+        //             url: "/login",
+        //             data: $('.form-create').serialize(),
+        //             type: "POST",
+        //             dataType: 'json',
+        //             cache: false,
+        //             success: function(msg){
+        //                 fade('登录成功');
+        //                 setTimeout(function(){
+        //                     location.href = window.location.href = "http://localhost:3000/gettopics";
+        //                 },1500)
+        //             }
+        //         })
+        //     }
+
+            // $.ajax({
+            //     url: "/login",
+            //     type: "POST",
+            //     cache: false,
+            //     success: function(msg){
+            //         fade('登录成功');
+            //         setTimeout(function(){
+            //             location.href = window.location.href = "http://localhost:3000/gettopics";
+            //         },1500)
+            //     }
+            // })
+        // }
+
+        function onclick_logout() {
+            $.ajax({
+                url: "/logout",
+                type: "GET",
+                cache: false,
+                success: function(msg){
+                    fade('退出登录成功');
+                    setTimeout(function(){
+                        location.href = window.location.href = "http://localhost:3000/gettopics";
+                    },1500)
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <style type="text/css">
+            a:link{
+                text-decoration:none;
+            }
+            a:visited{
+                text-decoration:none;
+            }
+            a:hover{
+                text-decoration:none;
+            }
+            a:active{
+                text-decoration:none;
+            }
+            .updatetime-in-allpost {
+                /* display: block; */
+                text-align: center;
+                font-size: 15px;
+                font-family:times;
+                display: block;
+                color: #c1c1c1;
+                float:right;
+            }
+            .center {
+                display: block;
+                margin-top: 50px;
+                margin-bottom: 100px;
+                width: 86%;
+                /* padding: 6px 7px;	 */
+                border-radius: 4px;   
+                /* border: 1px solid #d7dde4; */
+            }
+            .allpost-author:hover {
+                color: darkorange;
+            }
+            .logininput:focus {
+                outline: 0;
+                box-shadow: 0 0 0 2px rgba(51,153,255,.2);
+                border-color: #5cadff; 
+            }
+            .logininput:focus {
+                color: #5cadff;
+            }
+            .welcome-user:hover {
+                color: darkorange;
+                
+            }
+            .title_span, .postauthor {
+                display: block;
+                float: left;
+                width: 85%;
+                height: 35px;
+                font-size: 18px;
+                padding: 6px 7px;	
+                border-radius: 4px;   
+                border: 1px solid #d7dde4;
+                -webkit-appearance: none;
+            }
+            .title_span:focus {
+                outline: 0;
+                box-shadow: 0 0 0 2px rgba(51,153,255,.2);
+                border-color: #5cadff; 
+            }
+            .updatetime-in-allpost:hover {
+                background:lightskyblue;
+                color:white;
+            }
+            .title_span:hover{
+                background:lightskyblue;
+                color:white;
+                /* border:1px solid #5FB878; */
+            }
+            .content-markdown, .single-content-markdown {
+                text-indent:55px;
+            }
+            .single-title-span {
+                text-align: center;
+                font-size: 55px;
+                font-family:times;
+                font-weight:bold;
+                font-style:italic
+            }
+            .single-article-author {
+                text-align: center;
+                font-size: 25px;
+                font-family:times;
+                display: block;
+                color: black;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            .single-content-markdown {
+                font-size: 25px;
+                font-family: "Arial";
+            }
+            ul {
+                list-style: none;
+            }
+            .endtips {
+                margin: 20px 0;
+                color: #ec5051;
+                display: block;
+                text-align: center;
+                font-size: 20px
+            } 
+            .epost {
+                margin-bottom: 20px;
+            }
+            /* .article-author:focus {
+                color: orange;
+            } */
+            .content-markdown, .article-author {
+                display: block;
+                width: 85%;
+                height: auto;
+                font-size: 18px;
+                padding: 6px 7px;	
+                border-radius: 4px;   
+                border: 1px solid #d7dde4;
+                -webkit-appearance: none;
+            }
+            /* .article-author:hover {
+                color: darkorange;
+            } */
+            .navbar-brand {
+                font-size: 30px;
+                margin-top: 8px;
+            }
+            .navbar-brand:hover {
+                font-weight:bold;
+                color: darkorange;
+            }
+            .username {
+                font-size: 20px;
+                margin-top: 20px;
+                margin-right: 20px;
+            }
+            input {
+                display: block;
+                width: 100%;
+                height: 35px;
+                font-size: 18px;
+                padding: 6px 7px;	
+                border-radius: 4px;   
+                border: 1px solid #d7dde4;
+                -webkit-appearance: none;
+            }
+
+            input:focus,textarea:focus{
+                outline: 0;
+                box-shadow: 0 0 0 2px rgba(51,153,255,.2);
+                border-color: #5cadff;
+            }
+
+            input:hover,input:active,textarea:hover,textarea:active{
+                border-color: #5cadff;
+            }
+            .form {
+                margin: 0 auto;
+                width: 50%;
+                margin-top: 20px;
+            }
+            textarea {
+                width: 100%;
+                height: 150px;
+                padding:10px 0 0 10px;
+                font-size: 20px;
+                border-radius: 4px;   
+                border: 1px solid #d7dde4;
+                -webkit-appearance: none;
+                resize: none;
+            }
+            #welcomeuser{
+                text-align: center;
+                font-style:italic;
+            }
+            .messageTip{
+                position: fixed;
+                top: -100%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px 20px;
+                background: rgba(0, 0, 0, 0.7);
+                color: #fff;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                z-index: 99999;
+            }
+            .editarticlesubmit {
+                display: block;
+                width: 60px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 4px;
+                background: lightskyblue;
+                cursor: pointer;
+                color: #fff;
+                float: left;
+                position: relative;
+                left: 50%;
+                margin-top: 10px ;
+                /* margin-right: 5px ; */
+                margin-bottom: 10px ;
+                border:1px solid #fff;
+            }
+            .editarticlesubmit:hover {
+                background: #fff;
+                color: lightskyblue;
+                border:1px solid lightskyblue;
+            }
+            .changearticlesubmit {
+                display: block;
+                width: 60px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 4px;
+                background: lightskyblue;
+                cursor: pointer;
+                color: #fff;
+                float: right;
+                margin-top: 10px ;
+                margin-right: 5px ;
+                margin-bottom: 10px ;
+                border:1px solid #fff;
+            }
+            .changearticlesubmit:hover {
+                background: #fff;
+                color: lightskyblue;
+                border:1px solid lightskyblue;
+            }
+            .submit {
+                display: block;
+                width: 100px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 4px;
+                background: #5FB878;
+                cursor: pointer;
+                color: #fff;
+                float: right;
+                margin-top: 10px ;
+                margin-right: 5px ;
+                margin-bottom: 10px ;
+                border:1px solid #fff;
+            }
+            .submit:hover{
+                background: #fff;
+                color: #5FB878;
+                border:1px solid #5FB878;
+            }
+            #logininput{
+                display: block;
+                width: 200px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                border-radius: 4px;
+                cursor: pointer;
+                float: left;
+                margin-top: 10px ;
+                margin-right: 5px ;
+                margin-bottom: 10px ;
+                border:1px solid #fff;
+            }
+        </style>
+            
+        <div class="messageTip">登录成功</div>
+        <ul class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/gettopics">留言板</a>
+                    </div>
+
+                    <% if(!session.username){ %>
+                        <div>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <form action="/login" class="form-create" method="post">
+                                        <input id="logininput" name="username" type="text" placeholder="请输入用户名"/> 
+                                        <input id="logininput" name="password" type="password" placeholder="请输入密码"/>
+                                        <button id="submitlogin" class="submit" onclick="onclick_login()">登录</button>
+                                    </form>
+                                </li>
+                                <button class="submit" data-toggle="modal" data-target="#login" href="">注册</button>
+                            </ul>
+                        </div>
+
+                        <div id="login" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button class="close" data-dismiss="modal">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-title">
+                                            <h1 class="text-center">注册</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/signup" class="form group" method="post">
+                                            <div class="form group">
+                                                <label for="">用户名：</label> 
+                                                <input class="form-control" name="username" placeholder="请输入注册用户名" type="text">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">密码：</label> 
+                                                <input class="form-control" name="password" placeholder="请输入注册密码" class="password" type="password">
+                                            </div>
+                                            <div class="text-center">
+                                                <button class="btn btn-primary" type="submit">注册新用户</button>
+                                                <button class="btn btn-danger" type="reset">重置</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- 这里判断用户状态，如果未登录则显示帐号密码输入框，及注册按钮；
+                    如果已登录则显示欢迎+用户名，及退出按钮 -->
+                    <% if(session.username){ %>
+                        <div>
+                            <ul id="welcomeuser" class="nav navbar-nav navbar-right">
+                                <li class="user_has_login">
+                                    <h4 class="username">欢迎，<a class="welcome-user" href="/gettopics/?author=<%= session.username%> "><%= session.username %></a></h4>
+                                </li>
+                                <li class="loginuser_logout">
+                                    <!-- <a class="signout" href="/logout">退出</a> -->
+                                    <!-- <a class="signout">退出</a> -->
+                                    <button class="submit" onclick="onclick_logout()">退出</button>
+                                </li>
+                            </ul>
+                        </div>
+                    <% } %>
+                </div>
+            </ul>
+    </header>
