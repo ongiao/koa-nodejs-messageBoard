@@ -90,6 +90,4 @@ node app.js
 ```
 即可启动项目。
 
-![GitHub Logo](/public/1.png)
-![GitHub Logo](/public/2.png)
-![GitHub Logo](/public/3.png)# koa-nodejs-messageBoard
+![GitHub Logo](/public/4.png)# koa-nodejs-messageBoard
